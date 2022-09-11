@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package v1.adeipsum;
+
+// Describes violations in a client request. This error type focuses on the
+// syntactic aspects of the request.
+//
+// See: https://github.com/googleapis/googleapis/blob/master/google/rpc/error_details.proto#L169
+message BadRequest {
+  // A message type used to describe a single bad request field.
+  message FieldViolation {
+    // A path leading to a field in the request body. The value will be a
+    // sequence of dot-separated identifiers that identify a protocol buffer
+    // field. E.g., "field_violations.field" would identify this field.
+    string field = 1;
+
+    // A description of why the request element is bad.
+    string description = 2;
+  }
+
+  // A brief overview of what the errors are.
+  string summary = 1;
+
+  // Describes all violations in a client request.
+  repeated FieldViolation field_violations = 2;
+}
+
+message IpsumRequest {
+  // The length number of sentences that that will be returned in the response
+  int32 number_of_sentences = 1;
+}
+
+message IpsumReply {
+  oneof reply {
+    // The result content of the Ade Ipsum
+    string content = 1;
+    // A list of error if there is anything the server could not process
+    BadRequest errors = 2;
+  }
+}
+
+service AdeIpsum {
+  rpc GenerateIpsum (IpsumRequest) returns (IpsumReply);
+}
+

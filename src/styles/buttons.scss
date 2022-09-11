@@ -1,0 +1,13 @@
+.btn {
+  --md-btn-color: #{$white};
+  --md-btn-hover-color: #{$white};
+  --md-btn-disabled-color: #{$white};
+  --md-btn-active-color: #{$white};
+}
+
+.btn.btn-enterprise {
+  --md-btn-color: #{$black};
+  --md-btn-hover-color: #{$black};
+  --md-btn-disabled-color: #{$black};
+  --md-btn-active-color: #{$black};
+}
